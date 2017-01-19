@@ -1,0 +1,948 @@
+<html>
+	
+	
+	<head>
+	
+		<script type="text/javascript">
+		
+			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+			  ga('create', 'UA-90365155-1', 'auto');
+			  ga('send', 'pageview');
+			  
+			
+
+
+		</script>
+	
+		<title> Player Comparison App </title>
+	
+		<script src="shared/jquery.js" type="text/javascript"></script>
+		
+		<script src="shared/shiny.js" type="text/javascript"></script>
+		
+		<link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+	
+	
+		<style type="text/css">
+			
+			#header {
+				
+				background-color:#3B5EAF;
+				
+				position:fixed;
+				top:-5px;
+				height:40px;
+				width:2000px;
+				z-index: 1;
+				
+			}
+			
+			#move-line {
+				
+				position:relative;
+				top:60px;
+				margin-left:80px;
+				margin-right:80px;
+			
+			}
+			
+			#move-first-p {
+				
+				float:left;
+				position:relative;
+				top:70px;
+				left:225px;
+				
+			
+			}
+			
+			#move-second-p {
+			
+				float:left;
+				position:relative;
+				top:70px;
+				left:230px;
+			
+			}
+			
+			#move-third-p {
+			
+				float:left;
+				position:relative;
+				top:70px;
+				left:500px;
+			
+			}
+			
+			#move-fourth-p {
+			
+				float:left;
+				position:relative;
+				top:70px;
+				left:505px;
+			
+			}
+			
+			
+			h1 {
+			
+				font-family:Sans-serif;
+				font-size:26px;
+				position:relative;
+				top:-10px;
+				margin-left:10px;
+			}
+			
+			h2 {
+			
+				font-family:Sans-serif;
+			
+			}
+			
+			hr {
+			
+				border-color:black;
+				
+			
+			}
+			
+			p {
+			
+				font-family:Sans-serif;
+				font-size:85%;
+			
+			}
+			
+			a:visited {
+			
+				color:black;
+			
+			}
+			
+			a:link {
+    
+				color:black;
+			
+			}
+			
+			#move-second-title {
+			
+				
+				position:relative;
+				top:110;
+				right:345;
+				float:left;
+				
+				
+				
+			
+			}
+			
+			#move-third-title {
+			
+				
+				position:relative;
+				top:129px;
+				
+				
+			
+			}
+			
+			#move-below-plot {
+				position:relative;
+				top:60px;
+				padding-left:200px;
+				float:left;
+				
+			}
+			
+			#move-line-2 {
+			
+				position:relative;
+				top:150px;
+				margin-left:80px;
+				margin-right:80px;
+			
+			}
+			
+			#replace {
+			
+				width:105;
+				height:105;
+			
+			}
+			
+			#div-around-about {
+			
+				border-style:none solid none none;
+				border-width:0.5;
+				position:relative;
+				top:180px;
+				width:300px;
+				left:245px;
+				float:left;
+				
+			
+			}
+			
+			#move-about-app {
+			<!--
+				position:relative;
+				top:-20px;
+				border-style:none none none none;
+				left:250px;
+				width:190px;
+				padding-bottom:15px;
+				padding-left:15px;
+				border-style: none none solid none;
+				-->
+			}
+			
+			#layout-about-app {
+			
+				position:relative;
+				top:-30px;
+				left:-30px;
+				display:inline-block;
+				width:265px;
+			
+
+			
+			}
+			
+			#move-third-line {
+			
+				position:relative;
+				margin-left:100px;
+				margin-right:80px;
+				
+				
+				clear:both;
+			
+			}
+			
+			#div-for-how {
+			
+				
+				
+				position:relative;
+				top:-58px;
+				left:630px;
+				width:600px;
+				height:230px;
+				clear:both;
+			
+			}
+			
+			
+			#move-title-how {
+				
+				padding-top:23px;
+				padding-left:210px;
+				<!--
+				position:relative;
+				left:250px;
+				top:23px;
+				-->
+			
+			}
+			
+			#move-p-how {
+			
+				position:relative;
+				top:5;
+				
+			}
+	
+		
+		</style>
+	
+		
+	
+	</head>
+	
+	<body style = "margin:0">
+		
+		
+		<div id="header">
+			
+			<h1 style="float:left;"> NBA Player Comparisons </h1>
+			
+			<p style="
+			position:relative;
+			left:800px;">
+		
+				<strong>By <a href="http://jamesyh.com"><u>James Hill</u></a> </strong>
+		
+			</p>
+			
+		</div>
+		
+		<hr id="move-line">
+		
+			<div >
+			<p id="move-first-p"> Pick a Player: </p>
+			
+			<p id="move-second-p" onClick=”_gaq.push([‘_trackEvent’, ‘drop-downs’, ‘click’, ‘player-selected’, 5, true]);”>
+
+			<select name="player" >
+				<option value="Stephen Curry">Stephen Curry</option> 
+				<option value="Draymond Green">Draymond Green</option> 
+				<option value="Klay Thompson">Klay Thompson</option> 
+				<option value="Harrison Barnes">Harrison Barnes</option> 
+				<option value="Andre Iguodala">Andre Iguodala</option> 
+				<option value="Andrew Bogut">Andrew Bogut</option> 
+				<option value="Shaun Livingston">Shaun Livingston</option> 
+				<option value="Marreese Speights">Marreese Speights</option> 
+				<option value="Leandro Barbosa">Leandro Barbosa</option> 
+				<option value="David Lee">David Lee</option> 
+				<option value="Justin Holiday">Justin Holiday</option> 
+				<option value="Festus Ezeli">Festus Ezeli</option> 
+				<option value="Brandon Rush">Brandon Rush</option> 
+				<option value="James Michael McAdoo">James Michael McAdoo</option> 
+				<option value="Ognjen Kuzmic">Ognjen Kuzmic</option> 
+				<option value="Chris Paul">Chris Paul</option> 
+				<option value="DeAndre Jordan">DeAndre Jordan</option> 
+				<option value="J.J. Redick">J.J. Redick</option> 
+				<option value="Blake Griffin">Blake Griffin</option> 
+				<option value="Matt Barnes">Matt Barnes</option> 
+				<option value="Jamal Crawford">Jamal Crawford</option> 
+				<option value="Spencer Hawes">Spencer Hawes</option> 
+				<option value="Glen Davis">Glen Davis</option> 
+				<option value="Hedo Turkoglu">Hedo Turkoglu</option> 
+				<option value="Jordan Farmar">Jordan Farmar</option> 
+				<option value="Ekpe Udoh">Ekpe Udoh</option> 
+				<option value="Dahntay Jones">Dahntay Jones</option> 
+				<option value="Jordan Hamilton">Jordan Hamilton</option> 
+				<option value="Chris Douglas-Roberts">Chris Douglas-Roberts</option> 
+				<option value="C.J. Wilcox">C.J. Wilcox</option> 
+				<option value="Jared Cunningham">Jared Cunningham</option> 
+				<option value="Lester Hudson">Lester Hudson</option> 
+				<option value="Monta Ellis">Monta Ellis</option> 
+				<option value="Tyson Chandler">Tyson Chandler</option> 
+				<option value="Dirk Nowitzki">Dirk Nowitzki</option> 
+				<option value="Chandler Parsons">Chandler Parsons</option> 
+				<option value="Devin Harris">Devin Harris</option> 
+				<option value="Al-Farouq Aminu">Al-Farouq Aminu</option> 
+				<option value="J.J. Barea">J.J. Barea</option> 
+				<option value="Richard Jefferson">Richard Jefferson</option> 
+				<option value="Charlie Villanueva">Charlie Villanueva</option> 
+				<option value="Greg Smith">Greg Smith</option> 
+				<option value="Raymond Felton">Raymond Felton</option> 
+				<option value="Bernard James">Bernard James</option> 
+				<option value="Russell Westbrook">Russell Westbrook</option> 
+				<option value="Serge Ibaka">Serge Ibaka</option> 
+				<option value="Anthony Morrow">Anthony Morrow</option> 
+				<option value="Steven Adams">Steven Adams</option> 
+				<option value="Andre Roberson">Andre Roberson</option> 
+				<option value="Nick Collison">Nick Collison</option> 
+				<option value="Kevin Durant">Kevin Durant</option> 
+				<option value="Jeremy Lamb">Jeremy Lamb</option> 
+				<option value="Perry Jones">Perry Jones</option> 
+				<option value="Mitch McGary">Mitch McGary</option> 
+				<option value="Sebastian Telfair">Sebastian Telfair</option> 
+				<option value="Kyle Lowry">Kyle Lowry</option> 
+				<option value="Patrick Patterson">Patrick Patterson</option> 
+				<option value="DeMar DeRozan">DeMar DeRozan</option> 
+				<option value="Jonas Valanciunas">Jonas Valanciunas</option> 
+				<option value="Terrence Ross">Terrence Ross</option> 
+				<option value="Lou Williams">Lou Williams</option> 
+				<option value="Greivis Vasquez">Greivis Vasquez</option> 
+				<option value="Amir Johnson">Amir Johnson</option> 
+				<option value="James Johnson">James Johnson</option> 
+				<option value="Tyler Hansbrough">Tyler Hansbrough</option> 
+				<option value="Chuck Hayes">Chuck Hayes</option> 
+				<option value="Landry Fields">Landry Fields</option> 
+				<option value="Greg Stiemsma">Greg Stiemsma</option> 
+				<option value="Lucas Nogueira">Lucas Nogueira</option> 
+				<option value="Bruno Caboclo">Bruno Caboclo</option> 
+				<option value="James Harden">James Harden</option> 
+				<option value="Trevor Ariza">Trevor Ariza</option> 
+				<option value="Donatas Motiejunas">Donatas Motiejunas</option> 
+				<option value="Patrick Beverley">Patrick Beverley</option> 
+				<option value="Jason Terry">Jason Terry</option> 
+				<option value="Dwight Howard">Dwight Howard</option> 
+				<option value="Terrence Jones">Terrence Jones</option> 
+				<option value="Joey Dorsey">Joey Dorsey</option> 
+				<option value="Kostas Papanikolaou">Kostas Papanikolaou</option> 
+				<option value="Nick Johnson">Nick Johnson</option> 
+				<option value="Francisco Garcia">Francisco Garcia</option> 
+				<option value="Clint Capela">Clint Capela</option> 
+				<option value="Danny Green">Danny Green</option> 
+				<option value="Tim Duncan">Tim Duncan</option> 
+				<option value="Kawhi Leonard">Kawhi Leonard</option> 
+				<option value="Boris Diaw">Boris Diaw</option> 
+				<option value="Tony Parker">Tony Parker</option> 
+				<option value="Manu Ginobili">Manu Ginobili</option> 
+				<option value="Cory Joseph">Cory Joseph</option> 
+				<option value="Marco Belinelli">Marco Belinelli</option> 
+				<option value="Aron Baynes">Aron Baynes</option> 
+				<option value="Tiago Splitter">Tiago Splitter</option> 
+				<option value="Matt Bonner">Matt Bonner</option> 
+				<option value="Patrick Mills">Patrick Mills</option> 
+				<option value="Jeff Ayres">Jeff Ayres</option> 
+				<option value="Kyle Anderson">Kyle Anderson</option> 
+				<option value="Reggie Williams">Reggie Williams</option> 
+				<option value="Kyle Korver">Kyle Korver</option> 
+				<option value="Paul Millsap">Paul Millsap</option> 
+				<option value="Al Horford">Al Horford</option> 
+				<option value="Jeff Teague">Jeff Teague</option> 
+				<option value="DeMarre Carroll">DeMarre Carroll</option> 
+				<option value="Dennis Schroder">Dennis Schroder</option> 
+				<option value="Kent Bazemore">Kent Bazemore</option> 
+				<option value="Mike Scott">Mike Scott</option> 
+				<option value="Pero Antic">Pero Antic</option> 
+				<option value="Thabo Sefolosha">Thabo Sefolosha</option> 
+				<option value="Shelvin Mack">Shelvin Mack</option> 
+				<option value="Mike Muscala">Mike Muscala</option> 
+				<option value="Elton Brand">Elton Brand</option> 
+				<option value="John Jenkins">John Jenkins</option> 
+				<option value="Joe Johnson">Joe Johnson</option> 
+				<option value="Jarrett Jack">Jarrett Jack</option> 
+				<option value="Deron Williams">Deron Williams</option> 
+				<option value="Brook Lopez">Brook Lopez</option> 
+				<option value="Bojan Bogdanovic">Bojan Bogdanovic</option> 
+				<option value="Alan Anderson">Alan Anderson</option> 
+				<option value="Mason Plumlee">Mason Plumlee</option> 
+				<option value="Mirza Teletovic">Mirza Teletovic</option> 
+				<option value="Markel Brown">Markel Brown</option> 
+				<option value="Sergey Karasev">Sergey Karasev</option> 
+				<option value="Cory Jefferson">Cory Jefferson</option> 
+				<option value="Jerome Jordan">Jerome Jordan</option> 
+				<option value="Darius Morris">Darius Morris</option> 
+				<option value="Earl Clark">Earl Clark</option> 
+				<option value="Andrei Kirilenko">Andrei Kirilenko</option> 
+				<option value="Avery Bradley">Avery Bradley</option> 
+				<option value="Evan Turner">Evan Turner</option> 
+				<option value="Brandon Bass">Brandon Bass</option> 
+				<option value="Marcus Smart">Marcus Smart</option> 
+				<option value="Tyler Zeller">Tyler Zeller</option> 
+				<option value="Jared Sullinger">Jared Sullinger</option> 
+				<option value="Kelly Olynyk">Kelly Olynyk</option> 
+				<option value="Phil Pressey">Phil Pressey</option> 
+				<option value="James Young">James Young</option> 
+				<option value="Gerald Wallace">Gerald Wallace</option> 
+				<option value="Gerald Henderson">Gerald Henderson</option> 
+				<option value="Kemba Walker">Kemba Walker</option> 
+				<option value="Marvin Williams">Marvin Williams</option> 
+				<option value="Al Jefferson">Al Jefferson</option> 
+				<option value="Michael Kidd-Gilchrist">Michael Kidd-Gilchrist</option> 
+				<option value="Lance Stephenson">Lance Stephenson</option> 
+				<option value="Cody Zeller">Cody Zeller</option> 
+				<option value="Brian Roberts">Brian Roberts</option> 
+				<option value="Bismack Biyombo">Bismack Biyombo</option> 
+				<option value="Jason Maxiell">Jason Maxiell</option> 
+				<option value="P.J. Hairston">P.J. Hairston</option> 
+				<option value="Jeffery Taylor">Jeffery Taylor</option> 
+				<option value="Noah Vonleh">Noah Vonleh</option> 
+				<option value="Jannero Pargo">Jannero Pargo</option> 
+				<option value="Pau Gasol">Pau Gasol</option> 
+				<option value="Jimmy Butler">Jimmy Butler</option> 
+				<option value="Joakim Noah">Joakim Noah</option> 
+				<option value="Aaron Brooks">Aaron Brooks</option> 
+				<option value="Mike Dunleavy">Mike Dunleavy</option> 
+				<option value="Taj Gibson">Taj Gibson</option> 
+				<option value="Nikola Mirotic">Nikola Mirotic</option> 
+				<option value="Kirk Hinrich">Kirk Hinrich</option> 
+				<option value="Derrick Rose">Derrick Rose</option> 
+				<option value="Tony Snell">Tony Snell</option> 
+				<option value="E'Twaun Moore">E'Twaun Moore</option> 
+				<option value="Doug McDermott">Doug McDermott</option> 
+				<option value="Nazr Mohammed">Nazr Mohammed</option> 
+				<option value="Cameron Bairstow">Cameron Bairstow</option> 
+				<option value="Kyrie Irving">Kyrie Irving</option> 
+				<option value="Kevin Love">Kevin Love</option> 
+				<option value="LeBron James">LeBron James</option> 
+				<option value="Tristan Thompson">Tristan Thompson</option> 
+				<option value="Matthew Dellavedova">Matthew Dellavedova</option> 
+				<option value="Shawn Marion">Shawn Marion</option> 
+				<option value="Mike Miller">Mike Miller</option> 
+				<option value="James Jones">James Jones</option> 
+				<option value="Anderson Varejao">Anderson Varejao</option> 
+				<option value="Joe Harris">Joe Harris</option> 
+				<option value="Brendan Haywood">Brendan Haywood</option> 
+				<option value="Will Cherry">Will Cherry</option> 
+				<option value="Alex Kirk">Alex Kirk</option> 
+				<option value="Ty Lawson">Ty Lawson</option> 
+				<option value="Wilson Chandler">Wilson Chandler</option> 
+				<option value="Kenneth Faried">Kenneth Faried</option> 
+				<option value="Danilo Gallinari">Danilo Gallinari</option> 
+				<option value="J.J. Hickson">J.J. Hickson</option> 
+				<option value="Jusuf Nurkic">Jusuf Nurkic</option> 
+				<option value="Randy Foye">Randy Foye</option> 
+				<option value="Darrell Arthur">Darrell Arthur</option> 
+				<option value="Gary Harris">Gary Harris</option> 
+				<option value="Erick Green">Erick Green</option> 
+				<option value="Joffrey Lauvergne">Joffrey Lauvergne</option> 
+				<option value="Jamaal Franklin">Jamaal Franklin</option> 
+				<option value="Kentavious Caldwell-Pope">Kentavious Caldwell-Pope</option> 
+				<option value="Andre Drummond">Andre Drummond</option> 
+				<option value="Greg Monroe">Greg Monroe</option> 
+				<option value="Caron Butler">Caron Butler</option> 
+				<option value="Jodie Meeks">Jodie Meeks</option> 
+				<option value="Brandon Jennings">Brandon Jennings</option> 
+				<option value="Spencer Dinwiddie">Spencer Dinwiddie</option> 
+				<option value="Joel Anthony">Joel Anthony</option> 
+				<option value="John Lucas III">John Lucas III</option> 
+				<option value="Cartier Martin">Cartier Martin</option> 
+				<option value="Solomon Hill">Solomon Hill</option> 
+				<option value="Roy Hibbert">Roy Hibbert</option> 
+				<option value="David West">David West</option> 
+				<option value="Rodney Stuckey">Rodney Stuckey</option> 
+				<option value="C.J. Miles">C.J. Miles</option> 
+				<option value="Luis Scola">Luis Scola</option> 
+				<option value="C.J. Watson">C.J. Watson</option> 
+				<option value="George Hill">George Hill</option> 
+				<option value="Ian Mahinmi">Ian Mahinmi</option> 
+				<option value="Donald Sloan">Donald Sloan</option> 
+				<option value="Lavoy Allen">Lavoy Allen</option> 
+				<option value="Damjan Rudez">Damjan Rudez</option> 
+				<option value="Chris Copeland">Chris Copeland</option> 
+				<option value="Shayne Whittington">Shayne Whittington</option> 
+				<option value="Paul George">Paul George</option> 
+				<option value="Wesley Johnson">Wesley Johnson</option> 
+				<option value="Jeremy Lin">Jeremy Lin</option> 
+				<option value="Jordan Hill">Jordan Hill</option> 
+				<option value="Ed Davis">Ed Davis</option> 
+				<option value="Carlos Boozer">Carlos Boozer</option> 
+				<option value="Wayne Ellington">Wayne Ellington</option> 
+				<option value="Jordan Clarkson">Jordan Clarkson</option> 
+				<option value="Ryan Kelly">Ryan Kelly</option> 
+				<option value="Kobe Bryant">Kobe Bryant</option> 
+				<option value="Robert Sacre">Robert Sacre</option> 
+				<option value="Nick Young">Nick Young</option> 
+				<option value="Ronnie Price">Ronnie Price</option> 
+				<option value="Jabari Brown">Jabari Brown</option> 
+				<option value="Dwight Buycks">Dwight Buycks</option> 
+				<option value="Xavier Henry">Xavier Henry</option> 
+				<option value="Vander Blue">Vander Blue</option> 
+				<option value="Julius Randle">Julius Randle</option> 
+				<option value="Marc Gasol">Marc Gasol</option> 
+				<option value="Courtney Lee">Courtney Lee</option> 
+				<option value="Zach Randolph">Zach Randolph</option> 
+				<option value="Mike Conley">Mike Conley</option> 
+				<option value="Tony Allen">Tony Allen</option> 
+				<option value="Beno Udrih">Beno Udrih</option> 
+				<option value="Kosta Koufos">Kosta Koufos</option> 
+				<option value="Vince Carter">Vince Carter</option> 
+				<option value="Nick Calathes">Nick Calathes</option> 
+				<option value="Jon Leuer">Jon Leuer</option> 
+				<option value="Jordan Adams">Jordan Adams</option> 
+				<option value="Jarnell Stokes">Jarnell Stokes</option> 
+				<option value="Tyrus Thomas">Tyrus Thomas</option> 
+				<option value="Kalin Lucas">Kalin Lucas</option> 
+				<option value="Luol Deng">Luol Deng</option> 
+				<option value="Mario Chalmers">Mario Chalmers</option> 
+				<option value="Dwyane Wade">Dwyane Wade</option> 
+				<option value="Chris Bosh">Chris Bosh</option> 
+				<option value="Hassan Whiteside">Hassan Whiteside</option> 
+				<option value="Chris Andersen">Chris Andersen</option> 
+				<option value="James Ennis">James Ennis</option> 
+				<option value="Shabazz Napier">Shabazz Napier</option> 
+				<option value="Udonis Haslem">Udonis Haslem</option> 
+				<option value="Henry Walker">Henry Walker</option> 
+				<option value="Danny Granger">Danny Granger</option> 
+				<option value="Tyler Johnson">Tyler Johnson</option> 
+				<option value="Michael Beasley">Michael Beasley</option> 
+				<option value="Josh McRoberts">Josh McRoberts</option> 
+				<option value="Shannon Brown">Shannon Brown</option> 
+				<option value="Andre Dawkins">Andre Dawkins</option> 
+				<option value="Giannis Antetokounmpo">Giannis Antetokounmpo</option> 
+				<option value="Khris Middleton">Khris Middleton</option> 
+				<option value="Zaza Pachulia">Zaza Pachulia</option> 
+				<option value="Jerryd Bayless">Jerryd Bayless</option> 
+				<option value="Jared Dudley">Jared Dudley</option> 
+				<option value="O.J. Mayo">O.J. Mayo</option> 
+				<option value="Ersan Ilyasova">Ersan Ilyasova</option> 
+				<option value="John Henson">John Henson</option> 
+				<option value="Jabari Parker">Jabari Parker</option> 
+				<option value="Larry Sanders">Larry Sanders</option> 
+				<option value="Kendall Marshall">Kendall Marshall</option> 
+				<option value="Johnny O'Bryant">Johnny O'Bryant</option> 
+				<option value="Kenyon Martin">Kenyon Martin</option> 
+				<option value="Andrew Wiggins">Andrew Wiggins</option> 
+				<option value="Gorgui Dieng">Gorgui Dieng</option> 
+				<option value="Zach LaVine">Zach LaVine</option> 
+				<option value="Kevin Martin">Kevin Martin</option> 
+				<option value="Chase Budinger">Chase Budinger</option> 
+				<option value="Anthony Bennett">Anthony Bennett</option> 
+				<option value="Shabazz Muhammad">Shabazz Muhammad</option> 
+				<option value="Nikola Pekovic">Nikola Pekovic</option> 
+				<option value="Robbie Hummel">Robbie Hummel</option> 
+				<option value="Ricky Rubio">Ricky Rubio</option> 
+				<option value="Lorenzo Brown">Lorenzo Brown</option> 
+				<option value="Jeff Adrien">Jeff Adrien</option> 
+				<option value="Sean Kilpatrick">Sean Kilpatrick</option> 
+				<option value="Arinze Onuaku">Arinze Onuaku</option> 
+				<option value="Miroslav Raduljica">Miroslav Raduljica</option> 
+				<option value="Ronny Turiaf">Ronny Turiaf</option> 
+				<option value="Tyreke Evans">Tyreke Evans</option> 
+				<option value="Anthony Davis">Anthony Davis</option> 
+				<option value="Eric Gordon">Eric Gordon</option> 
+				<option value="Omer Asik">Omer Asik</option> 
+				<option value="Ryan Anderson">Ryan Anderson</option> 
+				<option value="Dante Cunningham">Dante Cunningham</option> 
+				<option value="Jrue Holiday">Jrue Holiday</option> 
+				<option value="Alexis Ajinca">Alexis Ajinca</option> 
+				<option value="Luke Babbitt">Luke Babbitt</option> 
+				<option value="Jimmer Fredette">Jimmer Fredette</option> 
+				<option value="John Salmons">John Salmons</option> 
+				<option value="Jeff Withey">Jeff Withey</option> 
+				<option value="Toney Douglas">Toney Douglas</option> 
+				<option value="Gal Mekel">Gal Mekel</option> 
+				<option value="Darius Miller">Darius Miller</option> 
+				<option value="Shane Larkin">Shane Larkin</option> 
+				<option value="Jason Smith">Jason Smith</option> 
+				<option value="Tim Hardaway">Tim Hardaway</option> 
+				<option value="Langston Galloway">Langston Galloway</option> 
+				<option value="Carmelo Anthony">Carmelo Anthony</option> 
+				<option value="Quincy Acy">Quincy Acy</option> 
+				<option value="Jose Calderon">Jose Calderon</option> 
+				<option value="Cole Aldrich">Cole Aldrich</option> 
+				<option value="Andrea Bargnani">Andrea Bargnani</option> 
+				<option value="Travis Wear">Travis Wear</option> 
+				<option value="Cleanthony Early">Cleanthony Early</option> 
+				<option value="Samuel Dalembert">Samuel Dalembert</option> 
+				<option value="Victor Oladipo">Victor Oladipo</option> 
+				<option value="Nikola Vucevic">Nikola Vucevic</option> 
+				<option value="Elfrid Payton">Elfrid Payton</option> 
+				<option value="Tobias Harris">Tobias Harris</option> 
+				<option value="Channing Frye">Channing Frye</option> 
+				<option value="Evan Fournier">Evan Fournier</option> 
+				<option value="Willie Green">Willie Green</option> 
+				<option value="Dewayne Dedmon">Dewayne Dedmon</option> 
+				<option value="Kyle O'Quinn">Kyle O'Quinn</option> 
+				<option value="Aaron Gordon">Aaron Gordon</option> 
+				<option value="Ben Gordon">Ben Gordon</option> 
+				<option value="Luke Ridnour">Luke Ridnour</option> 
+				<option value="Maurice Harkless">Maurice Harkless</option> 
+				<option value="Andrew Nicholson">Andrew Nicholson</option> 
+				<option value="Devyn Marble">Devyn Marble</option> 
+				<option value="Damian Lillard">Damian Lillard</option> 
+				<option value="LaMarcus Aldridge">LaMarcus Aldridge</option> 
+				<option value="Nicolas Batum">Nicolas Batum</option> 
+				<option value="Wesley Matthews">Wesley Matthews</option> 
+				<option value="Robin Lopez">Robin Lopez</option> 
+				<option value="Steve Blake">Steve Blake</option> 
+				<option value="Chris Kaman">Chris Kaman</option> 
+				<option value="C.J. McCollum">C.J. McCollum</option> 
+				<option value="Meyers Leonard">Meyers Leonard</option> 
+				<option value="Allen Crabbe">Allen Crabbe</option> 
+				<option value="Joel Freeland">Joel Freeland</option> 
+				<option value="Dorell Wright">Dorell Wright</option> 
+				<option value="Victor Claver">Victor Claver</option> 
+				<option value="Ben McLemore">Ben McLemore</option> 
+				<option value="Rudy Gay">Rudy Gay</option> 
+				<option value="DeMarcus Cousins">DeMarcus Cousins</option> 
+				<option value="Jason Thompson">Jason Thompson</option> 
+				<option value="Darren Collison">Darren Collison</option> 
+				<option value="Derrick Williams">Derrick Williams</option> 
+				<option value="Ray McCallum">Ray McCallum</option> 
+				<option value="Omri Casspi">Omri Casspi</option> 
+				<option value="Carl Landry">Carl Landry</option> 
+				<option value="Nik Stauskas">Nik Stauskas</option> 
+				<option value="Reggie Evans">Reggie Evans</option> 
+				<option value="Ryan Hollins">Ryan Hollins</option> 
+				<option value="David Stockton">David Stockton</option> 
+				<option value="David Wear">David Wear</option> 
+				<option value="Sim Bhullar">Sim Bhullar</option> 
+				<option value="Eric Moreland">Eric Moreland</option> 
+				<option value="Gordon Hayward">Gordon Hayward</option> 
+				<option value="Trey Burke">Trey Burke</option> 
+				<option value="Derrick Favors">Derrick Favors</option> 
+				<option value="Rudy Gobert">Rudy Gobert</option> 
+				<option value="Dante Exum">Dante Exum</option> 
+				<option value="Joe Ingles">Joe Ingles</option> 
+				<option value="Trevor Booker">Trevor Booker</option> 
+				<option value="Rodney Hood">Rodney Hood</option> 
+				<option value="Elijah Millsap">Elijah Millsap</option> 
+				<option value="Alec Burks">Alec Burks</option> 
+				<option value="Jeremy Evans">Jeremy Evans</option> 
+				<option value="Bryce Cotton">Bryce Cotton</option> 
+				<option value="Jack Cooley">Jack Cooley</option> 
+				<option value="Patrick Christopher">Patrick Christopher</option> 
+				<option value="Jerrelle Benimon">Jerrelle Benimon</option> 
+				<option value="John Wall">John Wall</option> 
+				<option value="Marcin Gortat">Marcin Gortat</option> 
+				<option value="Bradley Beal">Bradley Beal</option> 
+				<option value="Paul Pierce">Paul Pierce</option> 
+				<option value="Nene Hilario">Nene Hilario</option> 
+				<option value="Rasual Butler">Rasual Butler</option> 
+				<option value="Otto Porter">Otto Porter</option> 
+				<option value="Kris Humphries">Kris Humphries</option> 
+				<option value="Kevin Seraphin">Kevin Seraphin</option> 
+				<option value="Drew Gooden">Drew Gooden</option> 
+				<option value="Garrett Temple">Garrett Temple</option> 
+				<option value="Martell Webster">Martell Webster</option> 
+				<option value="DeJuan Blair">DeJuan Blair</option> 
+				<option value="Will Bynum">Will Bynum</option> 
+				<option value="Glen Rice">Glen Rice</option> 
+				<option value="Eric Bledsoe">Eric Bledsoe</option> 
+				<option value="Markieff Morris">Markieff Morris</option> 
+				<option value="P.J. Tucker">P.J. Tucker</option> 
+				<option value="Marcus Morris">Marcus Morris</option> 
+				<option value="Alex Len">Alex Len</option> 
+				<option value="Gerald Green">Gerald Green</option> 
+				<option value="T.J. Warren">T.J. Warren</option> 
+				<option value="Archie Goodwin">Archie Goodwin</option> 
+				<option value="Earl Barron">Earl Barron</option> 
+				<option value="Jerel McNeal">Jerel McNeal</option> 
+				<option value="Seth Curry">Seth Curry</option> 
+				<option value="Nerlens Noel">Nerlens Noel</option> 
+				<option value="Robert Covington">Robert Covington</option> 
+				<option value="Luc Mbah a Moute">Luc Mbah a Moute</option> 
+				<option value="Hollis Thompson">Hollis Thompson</option> 
+				<option value="Henry Sims">Henry Sims</option> 
+				<option value="Jerami Grant">Jerami Grant</option> 
+				<option value="JaKarr Sampson">JaKarr Sampson</option> 
+				<option value="Tony Wroten">Tony Wroten</option> 
+				<option value="Furkan Aldemir">Furkan Aldemir</option> 
+				<option value="Jason Richardson">Jason Richardson</option> 
+				<option value="Larry Drew">Larry Drew</option> 
+				<option value="Malcolm Thomas">Malcolm Thomas</option> 
+				<option value="Drew Gordon">Drew Gordon</option> 
+				<option value="Malcolm Lee">Malcolm Lee</option> 
+				<option value="Austin Daye">Austin Daye</option> 
+				<option value="Jae Crowder">Jae Crowder</option> 
+				<option value="Rajon Rondo">Rajon Rondo</option> 
+				<option value="Jameer Nelson">Jameer Nelson</option> 
+				<option value="Brandan Wright">Brandan Wright</option> 
+				<option value="Dwight Powell">Dwight Powell</option> 
+				<option value="Troy Daniels">Troy Daniels</option> 
+				<option value="Dion Waiters">Dion Waiters</option> 
+				<option value="Kendrick Perkins">Kendrick Perkins</option> 
+				<option value="Timofey Mozgov">Timofey Mozgov</option> 
+				<option value="Nate Robinson">Nate Robinson</option> 
+				<option value="D.J. Augustin">D.J. Augustin</option> 
+				<option value="Kyle Singler">Kyle Singler</option> 
+				<option value="Josh Smith">Josh Smith</option> 
+				<option value="Reggie Jackson">Reggie Jackson</option> 
+				<option value="Jonas Jerebko">Jonas Jerebko</option> 
+				<option value="Tayshaun Prince">Tayshaun Prince</option> 
+				<option value="Luigi Datome">Luigi Datome</option> 
+				<option value="A.J. Price">A.J. Price</option> 
+				<option value="Tarik Black">Tarik Black</option> 
+				<option value="Jeff Green">Jeff Green</option> 
+				<option value="JaMychal Green">JaMychal Green</option> 
+				<option value="Shawne Williams">Shawne Williams</option> 
+				<option value="Jorge Gutierrez">Jorge Gutierrez</option> 
+				<option value="Thaddeus Young">Thaddeus Young</option> 
+				<option value="Mo Williams">Mo Williams</option> 
+				<option value="Adreian Payne">Adreian Payne</option> 
+				<option value="Corey Brewer">Corey Brewer</option> 
+				<option value="Justin Hamilton">Justin Hamilton</option> 
+				<option value="Gary Neal">Gary Neal</option> 
+				<option value="Kevin Garnett">Kevin Garnett</option> 
+				<option value="Quincy Pondexter">Quincy Pondexter</option> 
+				<option value="Austin Rivers">Austin Rivers</option> 
+				<option value="Norris Cole">Norris Cole</option> 
+				<option value="Nate Wolters">Nate Wolters</option> 
+				<option value="Russ Smith">Russ Smith</option> 
+				<option value="Lance Thomas">Lance Thomas</option> 
+				<option value="Amar'e Stoudemire">Amar'e Stoudemire</option> 
+				<option value="Lou Amundson">Lou Amundson</option> 
+				<option value="Pablo Prigioni">Pablo Prigioni</option> 
+				<option value="Iman Shumpert">Iman Shumpert</option> 
+				<option value="J.R. Smith">J.R. Smith</option> 
+				<option value="Alexey Shved">Alexey Shved</option> 
+				<option value="Ricky Ledo">Ricky Ledo</option> 
+				<option value="Arron Afflalo">Arron Afflalo</option> 
+				<option value="Will Barton">Will Barton</option> 
+				<option value="Alonzo Gee">Alonzo Gee</option> 
+				<option value="Quincy Miller">Quincy Miller</option> 
+				<option value="Enes Kanter">Enes Kanter</option> 
+				<option value="Chris Johnson">Chris Johnson</option> 
+				<option value="Ian Clark">Ian Clark</option> 
+				<option value="Steve Novak">Steve Novak</option> 
+				<option value="Elliot Williams">Elliot Williams</option> 
+				<option value="Grant Jerrett">Grant Jerrett</option> 
+				<option value="Andre Miller">Andre Miller</option> 
+				<option value="Ramon Sessions">Ramon Sessions</option> 
+				<option value="Toure' Murry">Toure' Murry</option> 
+				<option value="Goran Dragic">Goran Dragic</option> 
+				<option value="Isaiah Thomas">Isaiah Thomas</option> 
+				<option value="Miles Plumlee">Miles Plumlee</option> 
+				<option value="Brandon Knight">Brandon Knight</option> 
+				<option value="Anthony Tolliver">Anthony Tolliver</option> 
+				<option value="Shavlik Randolph">Shavlik Randolph</option> 
+				<option value="Marcus Thornton">Marcus Thornton</option> 
+				<option value="Reggie Bullock">Reggie Bullock</option> 
+				<option value="Tyler Ennis">Tyler Ennis</option> 
+				<option value="Zoran Dragic">Zoran Dragic</option> 
+				<option value="Michael Carter-Williams">Michael Carter-Williams</option> 
+				<option value="K.J. McDaniels">K.J. McDaniels</option> 
+				<option value="Ish Smith">Ish Smith</option> 
+				<option value="Isaiah Canaan">Isaiah Canaan</option> 
+				<option value="Thomas Robinson">Thomas Robinson</option> 
+				<option value="Brandon Davies">Brandon Davies</option> 
+				<option value="Tim Frazier">Tim Frazier</option> 
+				<option value="Glenn Robinson III">Glenn Robinson III</option> 
+				<option value="JaVale McGee">JaVale McGee</option>
+			</select> 
+			</p>
+			
+			<p id="move-third-p"> Pick a Variable: </p>
+			
+			<p id="move-fourth-p">
+		<select name="variable">
+			<option value="FieldGoals">Field Goals</option> 
+			<option value="FieldGoalsAttempted">Field Goals Attempted</option> 
+			<option value="FieldGoalPercentage">Field Goal Percentage</option> 
+			<option value="ThreePoints">Three Points</option> 
+			<option value="ThreePointsAttempted">Three Points Attempted</option> 
+			<option value="TwoPointFieldGoals">Two Point Field Goals</option> 
+			<option value="TwoPointFieldGoalsAttempted">Two Point Field Goals Attempted</option> 
+			<option value="FreeThrows">Free Throws</option> 
+			<option value="FreeThrowsAttempted">Free Throws Attempted</option> 
+			<option value="OffensiveRebounds">Offensive Rebounds</option> 
+			<option value="DefensiveRebounds">Defensive Rebounds</option> 
+			<option value="TotalRebounds">Total Rebounds</option> 
+			<option value="Assists">Assists</option> 
+			<option value="Steals">Steals</option> 
+			<option value="Blocks">Blocks</option> 
+			<option value="Turnovers">Turnovers</option> 
+			<option value="PersonalFouls">Personal Fouls</option> 
+			<option value="TotalPoints" selected>Total Points</option> 
+			<option value="NumberofSeasons">Number of Seasons</option> 
+			<option value="Year">Year</option> 
+		</select> 
+		</p>
+		
+		
+		</div>
+		
+		<div >
+			
+			<h1 id="move-second-title" >Player Projection </h1>
+			
+			<h2 id="move-third-title">Comparable Players</h2>
+			
+		</div>
+		
+		
+		<div style="
+				position:relative;
+				left:100px;
+				top:100px;
+				width:400px;
+				height:400px;
+				border-style:none solid none none;
+				border-color:black;
+				border-width:0.5;
+				padding:23px;
+				
+				
+				" >
+			 <p id="plotdude" class="shiny-plot-output"
+			 style="width: 100%; height: 380px;"  >
+			 </p>
+		</div>
+		
+		
+			
+			
+
+			
+			  <p id="plotplayer1" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:600px; top:260px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			 <p id="plotplayer2" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:715px; top:260px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			 <p id="plotplayer3" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:830px; top:260px; outline: 2px solid #ccc7c7;">
+			 </p>
+			
+			<p id="plotplayer4" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:945px; top:260px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			 <p id="plotplayer5" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:1060px; top:260px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			  <p id="plotplayer6" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:600px; top:375px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			 <p id="plotplayer7" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:715px; top:375px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			 <p id="plotplayer8" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:830px; top:375px; outline: 2px solid #ccc7c7;">
+			 </p>
+			
+			<p id="plotplayer9" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:945px; top:375px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			 <p id="plotplayer10" class="shiny-plot-output"
+			 style="width: 105px; height: 105px;
+		     position:absolute; left:1060px; top:375px; outline: 2px solid #ccc7c7;">
+			 </p>
+			 
+			 
+			 
+			 
+			 
+			<!--<p><a href='second-page.html'>Statistician </a></p>-->
+		
+		
+		
+		
+		<hr id="move-line-2">
+
+		<div id="div-around-about">
+			
+			<h2 style="position:relative;top:-20px;"> About the app </h2>
+			
+			<p id="layout-about-app"> 
+			
+				As an avid NBA fan I have always been interested in comparing players. We will never know what it would
+				have been like for the 2015 Golden State Warriors to play against the 1995 Chicago bulls but we can see how 
+				their stats stack up to each other. This simple shiny app is my attempt at doing that. 
+				
+			</p>
+		
+		</div>		
+		
+		<div id="div-for-how">
+		
+			<h2 id="move-title-how">How it works</h2>
+		
+			<p id="move-p-how"> 
+			
+			Choose a player in the NBA (2015 season), then the algorithm that I created finds the 10 most comparable
+			players (past and present) and uses their stats to predict what the selected players next few seasons will
+			look like. The data was collected from basketball-reference.com and is per 100 possesion data.
+				
+			</p>
+		
+		</div>		
+		
+		<hr id="move-third-line">
+		
+		<!--
+		<strong> <a href="second-page.html"><u>Second Page</u></a> </strong>
+		<strong> <a href="third-page.html"><u>Third Page</u></a> </strong>
+		-->
+		
+	</body>
+
+</html>
