@@ -6,7 +6,7 @@ library(shiny)
 # Define server logic for random distribution application
 shinyServer(function(input, output) {
   
-  source("data/Functions for App.R")
+  source("data/functions-for-the-app.R")
   
   # Reactive expression to generate the requested distribution. This is 
   # called whenever the inputs change. The output renderers defined 

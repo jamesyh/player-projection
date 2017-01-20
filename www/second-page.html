@@ -1,0 +1,111 @@
+<html>
+  
+  <head>
+  
+  <link rel="stylesheet" type="text/css" href="shared/shiny.css"/> 
+    
+    <style type="text/css">
+      
+      #header {
+      
+      background-color:#3B5EAF;
+      
+      position:fixed;
+    top:-5px;
+    height:40px;
+    width:2000px;
+    z-index: 1;
+    
+    }
+
+h1 {
+  
+  font-family:Sans-serif;
+  font-size:26px;
+  position:relative;
+  top:-10px;
+  margin-left:10px;
+}
+
+p {
+  
+  font-family:Sans-serif;
+  font-size:85%;
+  
+}
+
+a {
+  
+  font-family:Sans-serif;
+  
+}
+
+a:visited {
+  
+  color:black;
+  
+}
+
+a:link {
+  
+  color:black;
+  
+}
+
+#move-line {
+
+position:relative;
+top:60px;
+margin-left:80px;
+margin-right:80px;
+
+}
+
+</style>
+  
+  </head>
+  
+  <body>
+  
+  <div id="header">
+    
+    <h1 style="float:left;"> NBA Player Comparisons </h1>
+      
+      <p style="
+      position:relative;
+      left:800px;">
+        
+        <strong>By <a href="http://jamesyh.com"><u>James Hill</u></a> </strong>
+          
+          </p>
+          
+          </div>
+          
+          <hr id="move-line">
+            
+            
+            <select name="player1" style="position:relative;top:200px">
+              <option value="Michael Jordan" selected>Michael Jordan</option> 
+                <option value="Kobe Bryant">Kobe Bryant</option> 
+                  <option value="LeBron James">LeBron James</option> 
+                    </select>
+                    
+                    <select name="player2" style="position:relative;top:200px">
+                      <option value="Michael Jordan">Michael Jordan</option> 
+                        <option value="Kobe Bryant" selected>Kobe Bryant</option> 
+                          <option value="LeBron James">LeBron James</option> 
+                            </select>
+                            
+                            <select name="player3" style="position:relative;top:200px">
+                              <option value="Michael Jordan">Michael Jordan</option> 
+                                <option value="Kobe Bryant">Kobe Bryant</option> 
+                                  <option value="LeBron James" selected>LeBron James</option> 
+                                    </select>
+                                    
+                                    <p id="comparisonPlot" class="shiny-plot-output" >
+                                      </p>
+                                      
+                                      
+                                      </body>
+                                      
+                                      </html>
