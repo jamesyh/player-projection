@@ -3,15 +3,57 @@ library(XML)
 
 dat <- readRDS("data/df.RDS")
 matrixSim <- readRDS("data/matrixSim.RDS")
+date <- readRDS('data/date.RDS')
 players2015 <- unique(dat[dat$Year == 2015,'Player'])
 allPlayers <- unique(dat$Player) 
 dat$lastSeason <- NA
+
 
 for(i in 1:length(allPlayers)){
   
   dat[dat$Player == allPlayers[i],'lastSeason'] = max(dat[dat$Player == allPlayers[i],'NumberofSeasons'])
   
 }
+
+if(date < Sys.Date()){
+  
+  saveRDS(Sys.Date(),'data/date.RDS')
+  
+  updated2017 <- as.data.frame(readHTMLTable("http://www.basketball-reference.com/leagues/NBA_2017_per_poss.html")[[1]] )
+  
+  updated2017 <- updated2017[!c(updated2017$Player == 'Player' ),1:29]
+  
+  names(updated2017) <- c("Rank","Player","Pos","Age","Tm","Games","GS","MP","FieldGoals",
+                          "FieldGoalsAttempted","FieldGoalPercentage","ThreePoints","ThreePointsAttempted",
+                          "3p%","TwoPointFieldGoals","TwoPointFieldGoalsAttempted","2p%","FreeThrows",
+                          "FreeThrowsAttempted","FT%","OffensiveRebounds","DefensiveRebounds","TotalRebounds",
+                          "Assists","Steals","Blocks","Turnovers","PersonalFouls","TotalPoints")
+  
+  updated2017$Year <- 2017
+  updated2017$NumberofSeasons <- 0
+  updated2017$lastSeason <- 0
+  
+  nam <- names(dat)
+  
+  for(i in 3:length(dat)){
+    
+    updated2017[,nam[i]] <- as.numeric( as.character( updated2017[,nam[i]] ) )
+    
+  }
+  
+  saveRDS(updated2017,"data/updated2017.RDS")
+  
+  
+}
+updated2017 <- readRDS("data/updated2017.RDS")
+
+
+
+
+
+
+
+
 
 
 nba.Prediction <- function(player.name,Var='Games',scaled = FALSE,
@@ -208,6 +250,8 @@ playerComparisonApp <- function(player1,player2,player3,var) {
     geom_line(size=2) + xlab('Number of Seasons') + ylab(var) +
     theme(legend.position="bottom")
 }
+
+
 
 
 
