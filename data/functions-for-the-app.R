@@ -1,5 +1,5 @@
 library(ggplot2)
-
+library(XML)
 
 dat <- readRDS("data/df.RDS")
 matrixSim <- readRDS("data/matrixSim.RDS")
@@ -86,8 +86,11 @@ nba.Prediction <- function(player.name,Var='Games',scaled = FALSE,
 
 
 
-
 plotCreator <- function(player.name,sim,var){
+  
+  
+  
+  
   
   # Data for individual player
   indiv <- dat[dat$Player == player.name,]
@@ -118,6 +121,18 @@ plotCreator <- function(player.name,sim,var){
   lower <- NA
   mid <- NA
   
+  current <- updated2017[updated2017$Player == player.name,]
+  current$NumberofSeasons = n + 1
+  current$lastSeason <- 0
+  
+  season <- dat[dat$Player == player.name & dat$NumberofSeasons == n,]
+  
+  nam <- names( dat[dat$Player == player.name & dat$NumberofSeasons == n,] )
+  
+  current <- current[,nam]
+  
+  current2 <- rbind(season,current)
+  
   for(i in (n + 1):(n+4)){
     
     m <- mean(sims[sims$NumberofSeasons == i,var])
@@ -133,8 +148,8 @@ plotCreator <- function(player.name,sim,var){
     
   }
   
-  yMax <- max(c(upper,all[,var]))
-  yMin <- min(c(lower,all[,var]))
+  yMax <- max(c(upper,all[,var],current2[,var]))
+  yMin <- min(c(lower,all[,var],current2[,var]))
   
   newData = cbind(mid,(n+1):(n+4))
   colnames(newData) <- c('mid','NumberofSeason')
@@ -144,16 +159,20 @@ plotCreator <- function(player.name,sim,var){
   ggplot(data = indiv, aes(x = indiv$NumberofSeasons,y = indiv[,var]) ) + 
     geom_line(size=2, color = 'Blue') +
     xlim(xMin, xMax) + ylim(yMin, yMax) +
-    geom_line(data = newData, aes(x = NumberofSeason, y = mid ),size = 1, color = 'Blue',linetype = "dashed" ) +
+    geom_line(data = newData, aes(x = NumberofSeason, y = mid ),
+              size = 1, color = 'Blue',linetype = "dashed" ) + 
+    geom_line(data = current2, aes(x = current2$NumberofSeason, y = current2[,var] , group = 1),
+              size = 1, color = 'Red',linetype = "dashed" ) +
+    geom_point(data = current, aes(x = current$NumberofSeason, y = current[,var]),
+               size = 2, color = 'Red') + 
     geom_errorbar(data = newData, aes(x = NumberofSeason, y = mid,
                                       ymax = upper,ymin = lower, width = 0,size = 1),
                   color = rgb(.03,.3,.3, 0.2)) +
     xlab('Number of Seasons') + ylab(var)+ theme(legend.position = "none")  + 
-    ggtitle(player.name) #+
-   # theme(plot.background = element_rect(fill = "red"))
-    #theme(panel.border = element_rect(colour = "black", fill=NA, size=2))
+    ggtitle(player.name)
   
 }
+
 
 simPlayerPlot <- function(player.name,simPlayer,var = "TotalPoints"){
   
