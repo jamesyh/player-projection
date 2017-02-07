@@ -53,80 +53,76 @@ updated2017 <- readRDS("data/updated2017.RDS")
 
 
 
-
-
-
-nba.Prediction <- function(player.name,Var='Games',scaled = FALSE,
-                           vars.of.interest = c("ThreePoints","TwoPointFieldGoals","ThreePointsAttempted"
-                                                ,"TwoPointFieldGoalsAttempted","DefensiveRebounds",
-                                                "OffensiveRebounds","Assists","Steals","Blocks","Turnovers","TotalPoints",
-                                                "FreeThrows","FreeThrowsAttempted")){
-  
-  dat <- dat[,c("Rank","Player",vars.of.interest,"NumberofSeasons")]
-  
-  if(scaled == TRUE){
-    
-    for(i in 1:length(vars.of.interest)){
-      
-      dat[,vars.of.interest[i]] <- scale(dat[,vars.of.interest[i]])
-      
-    }
-  }
-  
-  n.v.o.i <- length(vars.of.interest)+2
-  
-  indiv <- dat[dat$Player==player.name,]
-  n <- max(indiv[,'NumberofSeasons'])
-  
-  
-  sub <- dat[dat$NumberofSeasons > n,]
-  compare.players <- unique(sub$Player)
-  sub <- dat[dat$Player %in% compare.players,]
-  
-  
-  for( k in 1:n){
-    
-    sub1 <- (sub[sub$NumberofSeasons == k,])
-    
-    indiv1 <- (indiv[indiv$NumberofSeasons == k,])
-    
-    for (j in c(3:n.v.o.i)){
-      sub1[,j] <- sub1[,j] - as.numeric(indiv1[,j])
-    }
-    
-    
-    for (j in c(3:n.v.o.i)){
-      sub1[,j] <- sub1[,j]^2
-    }
-    
-    
-    ss <- rep(0,length(sub1[,1]))
-    for (j in 1:length(sub1[,1])){
-      ss[j] <- sum(sub1[j,3:n.v.o.i]) 
-    }
-    if(k==1){tss <- ss}
-    else{tss <- tss + ss}
-    
-  }
-  
-  tss <- cbind(ss,1:length(tss))
-  tss <- tss[which(tss[,1]!='NA'),]
-  tss <- tss[order(tss[,1]),]
-  close.players <- sub1[tss[1:10,2],][,2]
-  
-  
-  
-  return(close.players)
-  
-}
-
+# 
+# 
+# 
+# nba.Prediction <- function(player.name,Var='Games',scaled = FALSE,
+#                            vars.of.interest = c("ThreePoints","TwoPointFieldGoals","ThreePointsAttempted"
+#                                                 ,"TwoPointFieldGoalsAttempted","DefensiveRebounds",
+#                                                 "OffensiveRebounds","Assists","Steals","Blocks","Turnovers","TotalPoints",
+#                                                 "FreeThrows","FreeThrowsAttempted")){
+#   
+#   dat <- dat[,c("Rank","Player",vars.of.interest,"NumberofSeasons")]
+#   
+#   if(scaled == TRUE){
+#     
+#     for(i in 1:length(vars.of.interest)){
+#       
+#       dat[,vars.of.interest[i]] <- scale(dat[,vars.of.interest[i]])
+#       
+#     }
+#   }
+#   
+#   n.v.o.i <- length(vars.of.interest)+2
+#   
+#   indiv <- dat[dat$Player==player.name,]
+#   n <- max(indiv[,'NumberofSeasons'])
+#   
+#   
+#   sub <- dat[dat$NumberofSeasons > n,]
+#   compare.players <- unique(sub$Player)
+#   sub <- dat[dat$Player %in% compare.players,]
+#   
+#   
+#   for( k in 1:n){
+#     
+#     sub1 <- (sub[sub$NumberofSeasons == k,])
+#     
+#     indiv1 <- (indiv[indiv$NumberofSeasons == k,])
+#     
+#     for (j in c(3:n.v.o.i)){
+#       sub1[,j] <- sub1[,j] - as.numeric(indiv1[,j])
+#     }
+#     
+#     
+#     for (j in c(3:n.v.o.i)){
+#       sub1[,j] <- sub1[,j]^2
+#     }
+#     
+#     
+#     ss <- rep(0,length(sub1[,1]))
+#     for (j in 1:length(sub1[,1])){
+#       ss[j] <- sum(sub1[j,3:n.v.o.i]) 
+#     }
+#     if(k==1){tss <- ss}
+#     else{tss <- tss + ss}
+#     
+#   }
+#   
+#   tss <- cbind(ss,1:length(tss))
+#   tss <- tss[which(tss[,1]!='NA'),]
+#   tss <- tss[order(tss[,1]),]
+#   close.players <- sub1[tss[1:10,2],][,2]
+#   
+#   
+#   
+#   return(close.players)
+#   
+# }
+# 
 
 
 plotCreator <- function(player.name,sim,var){
-  
-  
-  
-  
   
   # Data for individual player
   indiv <- dat[dat$Player == player.name,]
@@ -171,9 +167,16 @@ plotCreator <- function(player.name,sim,var){
   
   for(i in (n + 1):(n+4)){
     
-    m <- mean(sims[sims$NumberofSeasons == i,var])
-    s <- sd(sims[sims$NumberofSeasons == i,var])
-    nP <- length( sims[sims$NumberofSeasons == i,var] )
+    reps <- ifelse((i - n) == 1,5,
+                   ifelse((i - n) == 2,3,
+                          ifelse((i - n) == 3,2,1)))
+    
+    
+    indivValue <- indiv[indiv$NumberofSeasons == n,var]
+    
+    m <- mean( c( sims[sims$NumberofSeasons == i,var],rep(indivValue,reps) ) ) 
+    s <- sd(c( sims[sims$NumberofSeasons == i,var],rep(indivValue,reps) ) ) 
+    nP <- length( c( sims[sims$NumberofSeasons == i,var],rep(indivValue,reps) )  )
     
     mid[i-n] <- m
     upper[i-n] <- m + qnorm(0.995)*s/sqrt(nP)
